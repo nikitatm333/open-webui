@@ -190,7 +190,7 @@
 			automations: { label: 'Automations', href: '/automations', iconType: 'automations' },
 			calendar: { label: 'Calendar', href: '/calendar', iconType: 'calendar' },
 			playground: { label: 'Playground', href: '/playground', iconType: 'playground' },
-            rag: { label: 'RAG', href: '__RAG_ADMIN_URL__', iconType: 'rag', external: true }
+            rag: { label: 'RAG', href: '/rag', iconType: 'rag' }
 		};
 		return items[id];
 	};
@@ -200,7 +200,8 @@
 		workspace: '/workspace',
 		calendar: '/calendar',
 		automations: '/automations',
-		playground: '/playground'
+		playground: '/playground',
+		rag: '/rag'
 	};
 
 	const getActiveMenuItemId = (pathname) => {
