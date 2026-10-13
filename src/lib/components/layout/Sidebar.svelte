@@ -86,6 +86,7 @@
 	import SearchIcon from './Sidebar/icons/Search.svelte';
 	import Sidebar from '../icons/Sidebar.svelte';
 	import WorkspaceIcon from './Sidebar/icons/Workspace.svelte';
+	import DatabaseIcon from '$lib/components/icons/Database.svelte';
 	import { slide } from 'svelte/transition';
 	import HotkeyHint from '../common/HotkeyHint.svelte';
 	import Dropdown from '../common/Dropdown.svelte';
@@ -94,7 +95,7 @@
 	import MoreHorizontalIcon from './Sidebar/icons/MoreHorizontal.svelte';
 
 	const BREAKPOINT = 768;
-	const DEFAULT_PINNED_ITEMS = ['notes', 'workspace'];
+	const DEFAULT_PINNED_ITEMS = ['notes', 'workspace', 'rag'];
 
 	let scrollTop = 0;
 
@@ -175,6 +176,8 @@
 				);
 			case 'playground':
 				return $user?.role === 'admin';
+			case 'rag':
+                return true;
 			default:
 				return false;
 		}
@@ -186,7 +189,8 @@
 			workspace: { label: 'Workspace', href: '/workspace', iconType: 'workspace' },
 			automations: { label: 'Automations', href: '/automations', iconType: 'automations' },
 			calendar: { label: 'Calendar', href: '/calendar', iconType: 'calendar' },
-			playground: { label: 'Playground', href: '/playground', iconType: 'playground' }
+			playground: { label: 'Playground', href: '/playground', iconType: 'playground' },
+            rag: { label: 'RAG', href: '__RAG_ADMIN_URL__', iconType: 'rag', external: true }
 		};
 		return items[id];
 	};
@@ -1019,10 +1023,16 @@
 					{#if meta && isMenuItemVisible(itemId)}
 						<div class="">
 							<Tooltip content={$i18n.t(meta.label)} placement="right">
-								<a
+												<a
 									class=" cursor-pointer flex size-8 items-center justify-center transition group"
 									href={meta.href}
+									target={meta.external ? '_blank' : undefined}
+									rel={meta.external ? 'noopener noreferrer' : undefined}
 									on:click={async (e) => {
+										if (meta.external) {
+											itemClickHandler();
+											return;
+										}
 										e.stopImmediatePropagation();
 										e.preventDefault();
 										goto(meta.href);
@@ -1049,6 +1059,8 @@
 											<CalendarIcon className="size-4" strokeWidth="1.5" />
 										{:else if itemId === 'playground'}
 											<CodeIcon className="size-4" strokeWidth="1.5" />
+										{:else if itemId === 'rag'}
+											<DatabaseIcon className="size-4" strokeWidth="1.5" />
 										{/if}
 									</div>
 								</a>
@@ -1235,7 +1247,7 @@
 									class="px-1 flex justify-center text-gray-700 dark:text-gray-300"
 									data-id={itemId}
 								>
-									<a
+												<a
 										id="sidebar-{itemId}-button"
 										class="grow flex items-center space-x-2 rounded-xl px-2 py-1.5 transition {itemId ===
 										activeMenuItemId
@@ -1244,6 +1256,8 @@
 												: 'bg-black/[0.035] dark:bg-white/[0.045]'
 											: 'hover:bg-gray-50 dark:hover:bg-gray-900'}"
 										href={meta.href}
+										target={meta.external ? '_blank' : undefined}
+										rel={meta.external ? 'noopener noreferrer' : undefined}
 										on:click={itemClickHandler}
 										draggable="false"
 										aria-label={$i18n.t(meta.label)}
@@ -1259,6 +1273,8 @@
 												<CalendarIcon className="size-4" strokeWidth="1.5" />
 											{:else if itemId === 'playground'}
 												<CodeIcon className="size-4" strokeWidth="1.5" />
+											{:else if itemId === 'rag'}
+												<DatabaseIcon className="size-4" strokeWidth="1.5" />
 											{/if}
 										</div>
 
