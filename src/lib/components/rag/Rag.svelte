@@ -50,7 +50,9 @@
 	let browseLoading = false;
 
 	let query = '';
-	let searchResults: { name: string; path: string; dir: string; size: number }[] | null = null;
+	let searchResults:
+		| { name: string; path: string; dir: string; size: number; indexed: boolean }[]
+		| null = null;
 	let searchDebounceTimer: ReturnType<typeof setTimeout>;
 	let highlightedFile: string | null = null;
 
