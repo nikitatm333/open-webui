@@ -32,6 +32,7 @@
 	import RagContextMenu from './RagContextMenu.svelte';
 	import IngestModal from './IngestModal.svelte';
 	import CreateCategoryModal from './CreateCategoryModal.svelte';
+	import IndexedDot from './IndexedDot.svelte';
 	import IngestPanel from './IngestPanel.svelte';
 
 	import Search from '$lib/components/icons/Search.svelte';
@@ -450,6 +451,7 @@
 							class="flex w-full items-center gap-2 rounded-xl px-2 py-1.5 text-left text-sm hover:bg-gray-50 dark:hover:bg-gray-900 transition"
 							on:click={() => openSearchResult(result)}
 						>
+							<IndexedDot indexed={result.indexed} />
 							<div class="min-w-0 flex-1 truncate">{result.name}</div>
 							<div class="shrink-0 text-xs text-gray-500 truncate max-w-[40%]">{result.dir}</div>
 						</button>
@@ -544,6 +546,7 @@
 								on:contextmenu={(e) =>
 									openContextMenu(e, { name: file.name, path: file.path, isDir: false })}
 							>
+								<IndexedDot indexed={file.indexed} />
 								<button
 									type="button"
 									class="min-w-0 flex-1 text-left truncate"

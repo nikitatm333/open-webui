@@ -3,7 +3,7 @@ import { WEBUI_BASE_URL } from '$lib/constants';
 export const RAG_ADMIN_BASE_URL = `${WEBUI_BASE_URL}/rag-admin`;
 
 type RagDir = { name: string; count: number };
-type RagFile = { name: string; path: string; size: number };
+type RagFile = { name: string; path: string; size: number; indexed: boolean };
 
 export type RagBrowseResult = {
 	path: string;
@@ -63,7 +63,9 @@ export const browse = async (token: string, path: string = ''): Promise<RagBrows
 export const searchFiles = async (
 	token: string,
 	q: string
-): Promise<{ results: { name: string; path: string; dir: string; size: number }[] }> => {
+): Promise<{
+	results: { name: string; path: string; dir: string; size: number; indexed: boolean }[];
+}> => {
 	const searchParams = new URLSearchParams();
 	searchParams.append('q', q);
 	return jsonRequest(token, `/api/search?${searchParams.toString()}`);
