@@ -24,6 +24,9 @@
 	bind:show={showClearDbConfirm}
 	title={$i18n.t('Clear database?')}
 	confirmLabel={$i18n.t('Clear database')}
+	message={$i18n.t(
+		'This permanently deletes the entire vector index. All files will become pending again. Type CLEAR to confirm.'
+	)}
 	input={true}
 	inputPlaceholder={$i18n.t('Type CLEAR to confirm')}
 	on:confirm={(e) => {
@@ -34,13 +37,7 @@
 			toast.error($i18n.t('Confirmation text did not match'));
 		}
 	}}
->
-	<div class="text-sm text-gray-500">
-		{$i18n.t(
-			'This permanently deletes the entire vector index. All files will become pending again. Type CLEAR to confirm.'
-		)}
-	</div>
-</ConfirmDialog>
+/>
 
 <Modal bind:show size="sm">
 	<div class="px-5 py-4">

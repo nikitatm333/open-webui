@@ -30,6 +30,7 @@
 	import FilesOverlay from '$lib/components/chat/MessageInput/FilesOverlay.svelte';
 	import RagContextMenu from './RagContextMenu.svelte';
 	import IngestModal from './IngestModal.svelte';
+	import CreateCategoryModal from './CreateCategoryModal.svelte';
 	import IngestPanel from './IngestPanel.svelte';
 
 	import Search from '$lib/components/icons/Search.svelte';
@@ -141,13 +142,8 @@
 		}, 2000);
 	};
 
-	const createFolderHandler = async (rawName: string) => {
-		const name = rawName.trim();
-		if (!/^[\p{L}\p{N}\-_ ]+$/u.test(name)) {
-			toast.error($i18n.t('Category name can only contain letters, numbers, spaces, - and _'));
-			return;
-		}
-
+	// Name format is validated by CreateCategoryModal before this is called.
+	const createFolderHandler = async (name: string) => {
 		const res = await createFolder(localStorage.token, currentPath, name).catch((error) => {
 			toast.error(`${error}`);
 			return null;
@@ -339,21 +335,7 @@
 	</div>
 </ConfirmDialog>
 
-<ConfirmDialog
-	bind:show={showCreateFolder}
-	title={$i18n.t('New category')}
-	confirmLabel={$i18n.t('Create')}
-	input={true}
-	inputPlaceholder={$i18n.t('Category name')}
-	on:confirm={(e) => {
-		if (e.detail) {
-			createFolderHandler(e.detail);
-		}
-		showCreateFolder = false;
-	}}
->
-	<div class="text-sm text-gray-500">{$i18n.t('Letters, numbers, spaces, - and _ only.')}</div>
-</ConfirmDialog>
+<CreateCategoryModal bind:show={showCreateFolder} onCreate={createFolderHandler} />
 
 <RagContextMenu
 	bind:show={showContextMenu}
