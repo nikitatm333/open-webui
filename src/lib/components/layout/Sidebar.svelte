@@ -190,7 +190,7 @@
 			automations: { label: 'Automations', href: '/automations', iconType: 'automations' },
 			calendar: { label: 'Calendar', href: '/calendar', iconType: 'calendar' },
 			playground: { label: 'Playground', href: '/playground', iconType: 'playground' },
-            rag: { label: 'RAG', href: '/rag', iconType: 'rag' }
+            rag: { label: 'Knowledge Base', href: '/rag', iconType: 'rag' }
 		};
 		return items[id];
 	};

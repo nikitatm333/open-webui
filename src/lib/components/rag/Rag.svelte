@@ -376,7 +376,7 @@
 	{#if loaded}
 		<div class="flex items-center gap-1 mb-1">
 			<div class="flex items-center gap-1 py-1 min-w-0">
-				<span class="min-w-fit px-1 text-sm select-none">{$i18n.t('RAG')}</span>
+				<span class="min-w-fit px-1 text-sm select-none">{$i18n.t('Knowledge Base')}</span>
 			</div>
 
 			<div class="ml-auto flex items-center gap-2">
