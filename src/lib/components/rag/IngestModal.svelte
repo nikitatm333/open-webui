@@ -53,7 +53,7 @@
 		</div>
 
 		<div class="text-xs text-gray-500 dark:text-gray-500 mb-2">
-			{$i18n.t('Pending files')} — {pending.length}
+			{$i18n.t('Pending files: {{count}}', { count: pending.length })}
 		</div>
 
 		<div class="max-h-64 overflow-y-auto rounded-lg border border-gray-100 dark:border-gray-800 mb-3">

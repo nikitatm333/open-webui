@@ -116,7 +116,7 @@
 		</div>
 		{#if status?.progress.last_file}
 			<div class="text-[11px] text-gray-500 truncate mt-1">
-				{$i18n.t('Last file')}: {status.progress.last_file}
+				{$i18n.t('Last file: {{FILE}}', { FILE: status.progress.last_file })}
 			</div>
 		{/if}
 	{:else}

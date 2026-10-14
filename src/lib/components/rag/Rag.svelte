@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy, getContext } from 'svelte';
 	import { toast } from 'svelte-sonner';
+	import { formatFileSize } from '$lib/utils';
 
 	const i18n = getContext('i18n');
 
@@ -329,9 +330,9 @@
 	}}
 >
 	<div class="text-sm text-gray-500">
-		{$i18n.t('This will delete')}
-		<span class="font-normal">{deleteTarget?.name}</span>
-		{$i18n.t('from disk and from the search index.')}
+		{$i18n.t('This will delete {{NAME}} from disk and from the search index.', {
+			NAME: deleteTarget?.name ?? ''
+		})}
 	</div>
 </ConfirmDialog>
 
@@ -523,7 +524,7 @@
 								<div class="min-w-0 flex-1">
 									<div class="truncate text-[13px]">{dir.name}</div>
 									<div class="text-[11px] text-gray-500">
-										{dir.count} {$i18n.t('files')}
+										{$i18n.t('{{count}} files', { count: dir.count })}
 									</div>
 								</div>
 							</button>
@@ -551,7 +552,7 @@
 									{file.name}
 								</button>
 								<div class="shrink-0 text-xs text-gray-500">
-									{(file.size / 1024).toFixed(1)} KB
+									{formatFileSize(file.size)}
 								</div>
 							</div>
 						{/each}
